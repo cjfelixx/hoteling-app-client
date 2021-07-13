@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useLogin from '../../state/auth/hooks/useLogin';
 import Spinner from '../../components/spinner';
-import { Container, Error, LoginForm } from './components';
+import { Container, Error, RegisterForm } from './components';
 import { isTokenExpired } from '../../utils/jwt';
 
 const Login = ({ location, history }) => {
@@ -16,9 +16,9 @@ const Login = ({ location, history }) => {
 
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Register</h1>
       <Spinner show={isLoading} />
-      <LoginForm onSubmit={(values, actions) => setLogin({ values, actions })} />
+      <RegisterForm onSubmit={(values, actions) => setLogin({ values, actions })} />
       {error && <Error>{error}</Error>}
     </Container>
   );

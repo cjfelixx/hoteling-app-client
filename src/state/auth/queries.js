@@ -16,6 +16,7 @@ export const loginUser = payload => {
     .post(`${basePath}/login`, payload)
     .then(res => res.data)
     .catch(err => {
+      console.log(err);
       throw err.response.data;
     });
 };
