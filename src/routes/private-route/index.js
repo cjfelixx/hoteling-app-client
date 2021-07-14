@@ -12,7 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props =>
         isTokenExpired() ? (
-          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+          <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
         ) : (
           <Component {...props} />
         )

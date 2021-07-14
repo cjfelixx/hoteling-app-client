@@ -83,6 +83,7 @@ const Header = (props) => {
   const history = useHistory();
   const handleLogout = async () => {
     localStorage.clear();
+    history.push('/login');
     await dispatch(logout());
   };
 
@@ -91,7 +92,7 @@ const Header = (props) => {
       <Title>DH Hoteling App</Title>
       <NavMenu>
         {!isTokenExpired() && <NavItems onClick={()=> history.push('/')}>Home</NavItems>}
-        {!isTokenExpired() && <NavItems onClick={()=> history.push('/setting')}>Settings</NavItems>}
+        {!isTokenExpired() && <NavItems onClick={()=> history.push('/settings')}>Settings</NavItems>}
         {!isTokenExpired() && <NavItems onClick={()=> history.push('/reserve')}>Reserve</NavItems>}
       </NavMenu>
       <RightNav>

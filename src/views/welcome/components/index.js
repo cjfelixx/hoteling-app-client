@@ -14,13 +14,13 @@ export const Container = styled.div`
   }
 `;
 
-export const Heading = styled.div`
-background-color: red;
+export const BigText = styled.div`
   font-family: Poppins;
-  font-weight: Bold;
-  width: 100%;
-  font-size: 48px;
-  margin-bottom: 3px;
+  font-weight: Light;
+  font-size: 80px;
+  margin 200px 200px;  
+  white-space: nowrap;
+  
 `;
 
 export const HeadingContainerSpaceBetween = styled.div`

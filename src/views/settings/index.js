@@ -12,7 +12,7 @@ const Home = () => {
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
       <Container>
         <div className="section">
-          <Heading>Reservation</Heading>
+          <Heading>Settings</Heading>
         </div>
       </Container>
     </motion.div>
