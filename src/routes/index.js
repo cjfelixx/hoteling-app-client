@@ -11,15 +11,18 @@ import Login from '../views/login';
 import Home from '../views/home';
 
 const Root = props => {
+  
   const initialState = {
     auth: AUTH_INITIAL_STATE,
   };
+  const userEmail = localStorage.getItem('email');
+  console.log(userEmail);
   return (
     <StateProvider initialState={initialState} reducer={reducers}>
       <BaseStyles />
       <Router>
         <>
-          <Header />
+          <Header email = {userEmail}/>
           <Content>
             <Switch>
               <Route exact path="/" component={Login} />

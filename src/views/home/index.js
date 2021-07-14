@@ -19,7 +19,7 @@ const Home = () => {
         <Heading>Reservation</Heading>
         </div>
       </Container>
-      <Content>Input</Content>
+      
     </>
   );
 };

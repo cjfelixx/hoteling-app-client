@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import theme from './theme';
 
 const Button = styled.button`
+  font-family: poppins;
   transition: all 0.3s ease;
   background: ${props => theme.colors[Object.keys(props).find(p => theme.colors[p])] || theme.colors.primary};
   text-transform: ${props => (props.upper ? 'uppercase' : 'none')};

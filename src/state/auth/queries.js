@@ -6,17 +6,15 @@ const basePath = '/auth';
 export const loadBox = () => {
   return axios
     .get('https://jsonplaceholder.typicode.com/posts')
-    .then(res => res.data)
-    .catch(err => err.response.data);
+    .then((res) => res.data)
+    .catch((err) => err.response.data);
 };
 
-export const loginUser = payload => {
-  console.log(payload);
+export const loginUser = (payload) => {
   return api
     .post(`${basePath}/login`, payload)
-    .then(res => res.data)
-    .catch(err => {
-      console.log(err);
+    .then((res) => res.data)
+    .catch((err) => {
       throw err.response.data;
     });
 };
