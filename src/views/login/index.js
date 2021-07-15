@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { pageTransition, pageVariants } from '../../utils/motion';
 
 const Login = ({ location, history }) => {
-  const { from } = location.state || { from: { pathname: '/home' } };
+  const { from } = location.state || { from: { pathname: '/login' } };
   const [auth, setLogin, isLoading, error] = useLogin();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Login = ({ location, history }) => {
   }, [auth, from, history]);
 
   return (
-    <motion.div exit={{ opacity: 0 }} transition={pageTransition} variants={pageVariants}>
+    <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
       <Container>
         {error && <Error>{error}</Error>}
         <h1>Login</h1>

@@ -91,7 +91,7 @@ const Header = (props) => {
     <Nav>
       <Title>DH Hoteling App</Title>
       <NavMenu>
-        {!isTokenExpired() && <NavItems onClick={()=> history.push('/')}>Home</NavItems>}
+        {!isTokenExpired() && <NavItems onClick={()=> history.push('/home')}>Home</NavItems>}
         {!isTokenExpired() && <NavItems onClick={()=> history.push('/settings')}>Settings</NavItems>}
         {!isTokenExpired() && <NavItems onClick={()=> history.push('/reserve')}>Reserve</NavItems>}
       </NavMenu>

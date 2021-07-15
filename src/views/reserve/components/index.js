@@ -3,21 +3,20 @@ import styled from 'styled-components';
 import 'typeface-poppins';
 
 export const Container = styled.div`
-
+background-color: red;
   // padding: 0 1rem;
   width: 90%;
-  .section {
-    margin: 1rem 0;
-  }
-  .bold {
-    font-weight: bold;
-  }
+
+  // .section {
+  //   margin: 1rem 0;
+  // }
+
 `;
 
 export const Heading = styled.div`
-background-color: red;
+background-color: green;
   font-family: Poppins;
-  font-weight: Bold;
+  font-weight: Semi Bold;
   width: 100%;
   font-size: 48px;
   margin-bottom: 3px;

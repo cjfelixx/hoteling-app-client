@@ -1,10 +1,7 @@
 import styled from 'styled-components';
-
 import 'typeface-poppins';
 
 export const Container = styled.div`
-
-  // padding: 0 1rem;
   width: 90%;
   .section {
     margin: 1rem 0;
@@ -18,11 +15,26 @@ export const BigText = styled.div`
   font-family: Poppins;
   font-weight: Light;
   font-size: 80px;
-  margin 200px 200px;  
+  text-align:center;
+  margin 200px 0 10px 0;  
   white-space: nowrap;
   
 `;
 
+export const Login = styled.button`
+  font-family: poppins;
+  transition: all 0.3s ease;
+  margin: 1px;
+  font-weight: 300;
+  padding: 9px 13px;
+  margin: 1px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
 export const HeadingContainerSpaceBetween = styled.div`
   display: flex;
   align-items: center;

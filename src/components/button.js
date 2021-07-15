@@ -11,7 +11,7 @@ const Button = styled.button`
   padding: 9px 13px;
   margin: 1px;
   border: none;
-  border-radius: 2px;
+  border-radius: 8px;
   cursor: pointer;
   width: ${props => (props.large ? '100%' : 'auto')};
   &:hover {
