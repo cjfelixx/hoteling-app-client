@@ -10,7 +10,7 @@ export const loadBox = () => {
     .catch((err) => err.response.data);
 };
 
-export const loginUser = (payload) => {
+export const getAvailableReservations = (payload) => {
   return api
     .post(`${basePath}/schedule`, payload)
     .then((res) => res.data)

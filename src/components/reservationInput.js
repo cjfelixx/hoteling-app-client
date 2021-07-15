@@ -10,24 +10,33 @@ const FormGroup = styled.div`
   flex-direction: row;
   flex-grow: 1;
   flex-shrink: 1;
-  margin-top: 100px;
-
+  margin: 50px;
 `;
 
 const Input = styled.input`
   margin: 10px 5px;
-  border-radius: 8px;
+  border-radius: 20px;
   border: 1px solid #e6e6e6;
-  padding: 7px;
+  padding: 10px;
   box-sizing: border-box;
-  width: 50%;
+  width: 100%;
   :focus {
     outline-color: ${theme.colors.primary};
   }
 `;
 
-const ReserveButtom = styled(Button)`
-  margin: 10px 5px;
+export const Error = styled.div`
+  position: relative;
+  color: #ed4337;
+  font-weight: 500;
+  margin: 1rem 0;
+  font-size: 0.8rem;
+  max-width: 250px;
+  // line-height: 1.5;
+`;
+
+const ReserveButton = styled(Button)`
+  margin: 10px 10px;
   width: 50%;
 `;
 
@@ -36,29 +45,28 @@ export const ReserveForm = (props) => (
     {({ handleChange, handleBlur, values, handleSubmit, errors }) => (
       <Form>
         <FormGroup style={{ minWidth: 250 }}>
-          {errors.genericError && <ErrorText>{errors.genericError}</ErrorText>}
           <Input
-            name="Check in"
-            id="Check in"
+            name="startDate"
+            id="startDate"
             placeholder="Check in"
-            onChange={handleChange('Check in')}
-            onBlur={handleBlur('Check in')}
-            error={errors.checkIn}
-            value={values.checkIn}
+            onChange={handleChange('startDate')}
+            onBlur={handleBlur('startDate')}
+            error={errors.startDate}
+            value={values.startDate}
           />
           <Input
-            id="Check out"
-            name="Check out"
-            type="Check out"
+            name="endDate"
+            id="endDate"
+            type="endDate"
             placeholder="Check out"
-            onChange={handleChange('Check out')}
-            onBlur={handleBlur('Check out')}
-            error={errors.checkOut}
-            value={values.checkOut}
+            onChange={handleChange('endDate')}
+            onBlur={handleBlur('endDate')}
+            error={errors.endDate}
+            value={values.endDate}
           />
-          <ReserveButtom primary large onClick={handleSubmit} type="submit">
+          <ReserveButton primary large onClick={handleSubmit} type="submit">
             Reserve
-          </ReserveButtom>
+          </ReserveButton>
         </FormGroup>
       </Form>
     )}

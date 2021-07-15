@@ -1,11 +1,6 @@
-export const LOGIN = 'auth/LOGIN';
-export const LOGOUT = 'auth/CLEAR_USER';
+export const LOGIN = 'reservation/FETCH_DATA';
 
-export const login = payload => ({
+export const fetchAvailableReservation = payload => ({
   type: LOGIN,
   payload,
-});
-
-export const logout = () => ({
-  type: LOGOUT,
 });
