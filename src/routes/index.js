@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { StateProvider } from '../state';
 import { AnimatePresence } from 'framer-motion';
 import { INITIAL_STATE as AUTH_INITIAL_STATE } from '../state/auth/reducers';
+import { INITIAL_STATE as RESERVATION_INITIAL_STATE } from '../state/reservation/reducers';
 import reducers from '../state/reducers';
 import BaseStyles from './base-styles';
 import PrivateRoute from './private-route';
@@ -17,13 +18,13 @@ import Welcome from '../views/welcome';
 const Root = (props) => {
   const initialState = {
     auth: AUTH_INITIAL_STATE,
+    reservation: RESERVATION_INITIAL_STATE,
   };
-  const userEmail = localStorage.getItem('email');
   return (
     <StateProvider initialState={initialState} reducer={reducers}>
       <BaseStyles />
       <Router>
-        <Header email={userEmail} />
+        <Header />
         <Content>
           <AnimatePresence exitBeforeEnter={true}>
             <Switch>

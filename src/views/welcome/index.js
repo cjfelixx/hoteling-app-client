@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-import Button from '../../components/button';
 import { pageTransition, pageVariants } from '../../utils/motion';
 import { motion } from 'framer-motion';
 import { useHistory } from 'react-router';

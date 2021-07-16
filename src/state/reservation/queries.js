@@ -6,15 +6,15 @@ const basePath = '/reserve';
 export const loadBox = () => {
   return axios
     .get('https://jsonplaceholder.typicode.com/posts')
-    .then((res) => res.data)
-    .catch((err) => err.response.data);
+    .then(res => res.data)
+    .catch(err => err.response.data);
 };
 
-export const getAvailableReservations = (payload) => {
+export const loadAvailableReservations = payload => {
   return api
     .post(`${basePath}/schedule`, payload)
-    .then((res) => res.data)
-    .catch((err) => {
+    .then(res => res.data)
+    .catch(err => {
       throw err.response.data;
     });
 };

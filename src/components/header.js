@@ -83,7 +83,6 @@ const Header = (props) => {
   const history = useHistory();
   const handleLogout = async () => {
     localStorage.clear();
-    history.push('/login');
     await dispatch(logout());
   };
 
