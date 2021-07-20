@@ -13,8 +13,20 @@ const Reserve = () => {
   const accessToken = localStorage.getItem('access_token');
   const user = jwt.decode(accessToken).sub;
 
-  const [Availablereservation, getAvailableReservations, createReservation,resetSearchResults, isLoading, error, isReserved] =
-    useReserve();
+  const [
+    Availablereservation,
+    getAvailableReservations,
+    createReservation,
+    resetSearchResults,
+    isLoading,
+    error,
+    isReserved
+  ] = useReserve();
+
+  useEffect(() => {
+    resetSearchResults();
+  }, []);
+
   const [show, showConfirm] = useState(false);
   const [reservation, setReservation] = useState({ userId: user, workspaceId: null, startDate: null, endDate: null });
   const hasReservations = Availablereservation?.available?.length > 0;
@@ -36,8 +48,6 @@ const Reserve = () => {
   const handleCancel = () => {
     showConfirm(false);
   };
-
-
 
   return (
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
@@ -62,10 +72,10 @@ const Reserve = () => {
           <ConfirmDialog open={show} onClose={handleClose} onBackdropClick={handleCancel} reservation={reservation} />
         </ReservationFeed>
       ) : (
-        <ReservationNotFound> No reservations. </ReservationNotFound>
+        <ReservationNotFound>No available workspaces.</ReservationNotFound>
       )}
     </motion.div>
   );
-}
+};
 
 export default Reserve;

@@ -27,3 +27,12 @@ export const submitReservation = payload => {
       throw err.response.data;
     });
 };
+
+export const loadReservations = () => {
+  return api
+    .get(`${basePath}/`)
+    .then(res => res.data)
+    .catch(err => {
+      throw err.response.data;
+    });
+};
