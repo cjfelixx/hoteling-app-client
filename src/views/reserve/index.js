@@ -1,19 +1,71 @@
-import React, { useEffect } from 'react';
-import useReserve from '../../state/reservation/hooks/useReserve';
+import React, { useState, useEffect } from 'react';
 import Spinner from '../../components/spinner';
+import useReserve from '../../state/reservation/hooks/useReserve';
 import { pageTransition, pageVariants } from '../../utils/motion';
 import { motion } from 'framer-motion';
-
+import { ReserveForm } from '../../components/reservationInput';
+import ConfirmDialog from '../../components/confirm';
 import { Container, ReservationFeed, ReservationFeedItem, ReservationNotFound } from './components';
+import Alert from '@material-ui/lab/Alert';
+import * as jwt from 'jsonwebtoken';
 
 const Reserve = () => {
+  const accessToken = localStorage.getItem('access_token');
+  const user = jwt.decode(accessToken).sub;
+
+  const [Availablereservation, getAvailableReservations, createReservation,resetSearchResults, isLoading, error, isReserved] =
+    useReserve();
+  const [show, showConfirm] = useState(false);
+  const [reservation, setReservation] = useState({ userId: user, workspaceId: null, startDate: null, endDate: null });
+  const hasReservations = Availablereservation?.available?.length > 0;
+
+  const handleSubmit = (values, action) => {
+    getAvailableReservations(values);
+    setReservation({ ...reservation, startDate: values.startDate, endDate: values.endDate });
+  };
+  const handleConfirm = reservation => {
+    setReservation(reservation);
+    showConfirm(true);
+  };
+  const handleClose = value => {
+    showConfirm(false);
+    if (value) {
+      createReservation(value);
+    }
+  };
+  const handleCancel = () => {
+    showConfirm(false);
+  };
+
+
 
   return (
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
-      {/* <Spinner show={isLoading} /> */}
-      <Container>Reserve</Container>
+      <Spinner show={isLoading} />
+      <Container>
+        <ReserveForm onSubmit={(values, action) => handleSubmit(values, action)} />
+        {error && <Alert severity="error">{error}</Alert>}
+        {isReserved && <Alert severity="success"> {`Workspace Reserved:)`}</Alert>}
+      </Container>
+      {hasReservations ? (
+        <ReservationFeed>
+          {Availablereservation?.available?.map(r => (
+            <ReservationFeedItem
+              onClick={() => handleConfirm({ ...reservation, workspaceId: r.workspaceid })}
+              key={r.workspaceid}>
+              <section>
+                <div className="workspace">{`Workspace ` + r.workspaceid.toString()}</div>
+                <div className="description">{r.description}</div>
+              </section>
+            </ReservationFeedItem>
+          ))}
+          <ConfirmDialog open={show} onClose={handleClose} onBackdropClick={handleCancel} reservation={reservation} />
+        </ReservationFeed>
+      ) : (
+        <ReservationNotFound> No reservations. </ReservationNotFound>
+      )}
     </motion.div>
   );
-};
+}
 
 export default Reserve;

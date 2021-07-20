@@ -14,7 +14,7 @@ const Nav = styled.div`
   align-items: center;
   padding: 0 20px;
   background: white;
-  position: ${(props) => (props.fixed ? 'fixed' : 'relative')};
+  position: ${props => (props.fixed ? 'fixed' : 'relative')};
 `;
 const NavMenu = styled.div`
   display: flex;
@@ -25,7 +25,6 @@ const NavMenu = styled.div`
   /* Third Nav */
   /* width: 100vw;
   white-space: nowrap; */
-
 `;
 const RightNav = styled.nav`
   display: flex;
@@ -40,22 +39,13 @@ const RightNav = styled.nav`
   }
 `;
 
-const Right = styled.div`
-  background-color: red;
-
-  position: relative;
-  flex: 1;
-  flex-direction: row-reverse;
-  text-align: right;
-`;
-
 const Title = styled.h1`
   font-family: poppins;
   margin: 30px;
   color: #000;
   font-weight: 500;
 `;
-const UserText = styled.h1`
+const UserText = styled.button`
   font-family: poppins;
   font-size: 15px;
   margin: 5%;
@@ -78,7 +68,7 @@ const NavItems = styled.button`
   }
 `;
 
-const Header = (props) => {
+const Header = props => {
   const [{ auth }, dispatch] = useStateValue();
   const history = useHistory();
   const handleLogout = async () => {
@@ -90,9 +80,9 @@ const Header = (props) => {
     <Nav>
       <Title>DH Hoteling App</Title>
       <NavMenu>
-        {!isTokenExpired() && <NavItems onClick={()=> history.push('/home')}>Home</NavItems>}
-        {!isTokenExpired() && <NavItems onClick={()=> history.push('/settings')}>Settings</NavItems>}
-        {!isTokenExpired() && <NavItems onClick={()=> history.push('/reserve')}>Reserve</NavItems>}
+        {!isTokenExpired() && <NavItems onClick={() => history.push('/home')}>Home</NavItems>}
+        {/* {!isTokenExpired() && <NavItems onClick={()=> history.push('/settings')}>Settings</NavItems>} */}
+        {!isTokenExpired() && <NavItems onClick={() => history.push('/reserve')}>Reserve</NavItems>}
       </NavMenu>
       <RightNav>
         {!isTokenExpired() && (
@@ -100,7 +90,7 @@ const Header = (props) => {
             Logout
           </NavItems>
         )}
-        {!isTokenExpired() && <UserText>{props.email}</UserText>}
+        {!isTokenExpired() && <NavItems onClick={() => history.push('/profile')}>Profile</NavItems>}
       </RightNav>
     </Nav>
   );

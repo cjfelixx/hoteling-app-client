@@ -12,6 +12,7 @@ import Header from '../components/header';
 import Login from '../views/login';
 import Home from '../views/home';
 import Settings from '../views/settings';
+import Profile from '../views/profile';
 import Reserve from '../views/reserve';
 import Welcome from '../views/welcome';
 
@@ -33,6 +34,7 @@ const Root = (props) => {
               <Route exact path="/login" component={Login} />
               <PrivateRoute path="/home" component={Home} />
               <PrivateRoute path="/settings" component={Settings} />
+              <PrivateRoute path="/profile" component={Profile} />
               <PrivateRoute path="/reserve" component={Reserve} />
             </Switch>
           </AnimatePresence>

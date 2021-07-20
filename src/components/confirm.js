@@ -7,16 +7,15 @@ import Button from '@material-ui/core/Button';
 
 const ConfirmDialog = props => {
   const { onClose, reservation, open } = props;
-  const handleClose = () => onClose(reservation);
+  const handleClose = () => onClose();
   const handleReserve = () => {
     onClose(reservation);
-    console.log(reservation);
   };
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="reservation-confirm">Do you want to reserve?</DialogTitle>
       <DialogContent>
-        <div>{`Workspace: ` + reservation.workspaceid}</div>
+        <div>{`Workspace: ` + reservation.workspaceId}</div>
         <div>{`Start date: ` + reservation.startDate}</div>
         <div>{`End date: ` + reservation.endDate}</div>
       </DialogContent>

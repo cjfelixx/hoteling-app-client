@@ -21,7 +21,7 @@ export const loadAvailableReservations = payload => {
 
 export const submitReservation = payload => {
   return api
-    .post(`${basePath}/reserve`, payload)
+    .post(`${basePath}/`, payload)
     .then(res => res.data)
     .catch(err => {
       throw err.response.data;
