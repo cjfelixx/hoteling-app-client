@@ -7,7 +7,7 @@ export const INITIAL_STATE = {
   user: null,
 };
 
-export default (state = INITIAL_STATE, action) => {
+const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LOGIN:
       return {
@@ -17,9 +17,11 @@ export default (state = INITIAL_STATE, action) => {
       };
     case LOGOUT:
       return {
-        ...INITIAL_STATE,
+        INITIAL_STATE,
       };
     default:
       return state;
   }
 };
+
+export default authReducer;

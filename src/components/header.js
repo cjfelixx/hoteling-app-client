@@ -82,8 +82,8 @@ const Header = (props) => {
   const [{ auth }, dispatch] = useStateValue();
   const history = useHistory();
   const handleLogout = async () => {
-    localStorage.clear();
-    await dispatch(logout());
+    await localStorage.clear();
+    dispatch(logout());
   };
 
   return (

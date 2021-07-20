@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useStateValue } from '../../index';
-import { listAvailableReservations } from '../actions';
-import { loadAvailableReservations } from '../queries';
+import { listAvailableReservations, pushReservation } from '../actions';
+import { loadAvailableReservations, submitReservation } from '../queries';
 
 const useReserve = () => {
-  
   const [{ reservation }, dispatch] = useStateValue();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -13,16 +12,24 @@ const useReserve = () => {
     setIsLoading(true);
     setError('');
 
-      try {
-        const response = await loadAvailableReservations(body);
-        dispatch(listAvailableReservations(response));
-      } catch (err) {
-        setError(err.message);
-      }
-      setIsLoading(false);
+    try {
+      const response = await loadAvailableReservations(body);
+      dispatch(listAvailableReservations(response));
+    } catch (err) {
+      setError(err.message);
     }
+    setIsLoading(false);
+  };
 
-  return [reservation, getAvailableReservations, isLoading, error];
+  const createReservation = async body => {
+    try {
+      const response = await submitReservation(body);
+      dispatch(pushReservation(response));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  return [reservation, getAvailableReservations, createReservation, isLoading, error];
 };
 
 export default useReserve;

@@ -7,19 +7,21 @@ import Button from './button';
 
 const FormGroup = styled.div`
   display: flex;
+  justify-content: center;
   flex-direction: row;
-  flex-grow: 1;
-  flex-shrink: 1;
-  margin: 50px;
+  // flex-grow: 1;
+  // flex-shrink: 1;
+  margin: 20px auto;
 `;
 
 const Input = styled.input`
+  // position: relative;
   margin: 10px 5px;
   border-radius: 20px;
   border: 1px solid #e6e6e6;
   padding: 10px;
   box-sizing: border-box;
-  width: 100%;
+  width: 100px;
   :focus {
     outline-color: ${theme.colors.primary};
   }
@@ -37,7 +39,7 @@ export const Error = styled.div`
 
 const ReserveButton = styled(Button)`
   margin: 10px 10px;
-  width: 50%;
+  width: 100px;
 `;
 
 export const ReserveForm = (props) => (

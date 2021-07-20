@@ -20,6 +20,7 @@ const Root = (props) => {
     auth: AUTH_INITIAL_STATE,
     reservation: RESERVATION_INITIAL_STATE,
   };
+  
   return (
     <StateProvider initialState={initialState} reducer={reducers}>
       <BaseStyles />

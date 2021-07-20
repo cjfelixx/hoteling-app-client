@@ -1,11 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Error = styled.div`
-  position: relative;
+  text-align: center;
+  width: 100vw;
+  // position: relative;
   color: #ed4337;
   font-weight: 500;
-  margin: 1rem 0;
+  // margin: 1rem 0;
   font-size: 0.8rem;
-  max-width: 250px;
-  // line-height: 1.5;
+  line-height: 1.5;
 `;

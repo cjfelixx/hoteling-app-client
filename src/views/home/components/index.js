@@ -2,19 +2,20 @@ import styled from 'styled-components';
 import 'typeface-poppins';
 
 export const Container = styled.div`
-
   // padding: 0 1rem;
-  width: 90%;
-  .section {
-    margin: 1rem 0;
-  }
+  width: 100%;
+  // margin: 0 auto;
+  // text-align: center;
   .bold {
     font-weight: bold;
+  }
+
+  @media screen and (max-width: 900px) {
+    width: 100vw;
   }
 `;
 
 export const Heading = styled.div`
-background-color: red;
   font-family: Poppins;
   font-weight: Bold;
   width: 100%;
@@ -22,17 +23,9 @@ background-color: red;
   margin-bottom: 3px;
 `;
 
-export const HeadingContainerSpaceBetween = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 export const Content = styled.div`
-  background-color: white;
   height: 80vh;
   width: 80vw;
-
   padding: 20px;
   margin: 10px;
   box-sizing: border-box;
@@ -40,33 +33,35 @@ export const Content = styled.div`
 `;
 
 export const ReservationFeed = styled.ol`
-  list-style-type: none;
-  padding: 0;
-  margin: 32px 0 32px 32px;
-`;
+  display: grid;
 
-export const ReservationFeedIcon = styled.img`
-  position: absolute;
-  width: 22px;
-  left: -12px;
-  top: 8px;
-  z-index: 1;
+  height: 80vh;
+  width: 80vw;
+  list-style-type: none;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 24px;
+  align-items: stretch;
+  padding: 32px 0 32px 32px;
+
+  @media screen and (max-width: 900px) {
+    width: 100vw;
+    grid-template-columns: repeat(1, 1fr);
+    padding: 10px;
+  }
 `;
 
 export const ReservationFeedItem = styled.li`
+  width: 250px;
+  height: 200px;
   position: relative;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: white;
+  border-radius: 10px;
   // margin-bottom: 32px;
-  padding: 4px 10px;
-  border: .5px solid gray;
-  border-left: 2px solid transparent;
-  border-right: 2px solid transparent;
-  :first-child {
-    border-top: transparent;
-  }
-  :last-child {
-    border-bottom: transparent;
-  }
+  padding: 2px 16px;
+
+  cursor: pointer;
   :before {
     content: attr(data-date);
     display: flex;
@@ -82,14 +77,11 @@ export const ReservationFeedItem = styled.li`
   }
 
   section {
-    background-color: white;
-    padding: 30px ;
-    border-radius: 4px;
-    cursor: pointer;
+    background-color: transparent;
+    padding: 30px;
   }
   :hover {
-    border-left: 2px solid blue;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
   .workspace {
@@ -101,12 +93,16 @@ export const ReservationFeedItem = styled.li`
     font-size: 0.9rem;
     margin-bottom: 20px;
   }
+  @media screen and (max-width: 900px) {
+    width: calc(100%);
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
-export const ReservationNotFound = styled.div
-`color:#888;
-font-size: 0.9rem;
-text-align: center;
-padding: 3rem 0;
-`
-;
+export const ReservationNotFound = styled.div`
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 3rem 0;
+`;

@@ -18,3 +18,12 @@ export const loadAvailableReservations = payload => {
       throw err.response.data;
     });
 };
+
+export const submitReservation = payload => {
+  return api
+    .post(`${basePath}/reserve`, payload)
+    .then(res => res.data)
+    .catch(err => {
+      throw err.response.data;
+    });
+};
