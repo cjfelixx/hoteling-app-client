@@ -7,31 +7,35 @@ const useProfile = () => {
   const [{ profile }, dispatch] = useStateValue();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const getUser = async user => {
     setIsLoading(true);
     setError('');
-    try {
-      const response = await loadUserProfile(user);
-      dispatch(getProfileInfo(response[0]));
+    if (user) {
+      try {
+        const response = await loadUserProfile(user);
+        dispatch(getProfileInfo(response[0]));
 
-      getReservationbyUser();
-    } catch (err) {
-      setError(err.message);
+        getReservationbyUser();
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const updateUser = async (user, values) => {
+    setIsUpdated(false);
     setIsLoading(true);
     setError('');
- 
+
     if (values && user) {
       try {
         const response = await updateUserProfile(user, values);
         dispatch(updateProfileInfo(response));
+        setIsUpdated(true);
       } catch (err) {
-        
         setError(err.message);
       }
       getUser(user);
@@ -41,15 +45,18 @@ const useProfile = () => {
   const getReservationbyUser = async user => {
     setIsLoading(true);
     setError('');
-    try {
-      const response = await loadProfileReservations(user);
-      dispatch(getProfileReservations(response));
-    } catch (err) {
-      setError(err.message);
+    if (user) {
+      try {
+        const response = await loadProfileReservations(user);
+        dispatch(getProfileReservations(response));
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
-  return [profile, getUser, updateUser, getReservationbyUser, isLoading, error];
+
+  return [profile, getUser, updateUser, getReservationbyUser, isLoading, error, isUpdated];
 };
 
 export default useProfile;

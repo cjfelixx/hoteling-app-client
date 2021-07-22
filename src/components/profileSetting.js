@@ -3,7 +3,6 @@ import theme from './theme';
 import { Form, Formik } from 'formik';
 import Input from './form/input';
 import FormGroup from './form/formGroup';
-import ErrorText from './form/error';
 
 import Button from './button';
 

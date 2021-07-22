@@ -13,7 +13,7 @@ const Profile = () => {
   const accessToken = localStorage.getItem('access_token');
   const user = jwt.decode(accessToken).sub;
 
-  const [profile, getUser, updateUser, getReservationbyUser, isLoading, error] = useProfile();
+  const [profile, getUser, updateUser, getReservationbyUser, isLoading, error, isUpdated] = useProfile();
   const reservation = profile?.reservations;
   const hasReservations = reservation?.length > 0;
   const profileInfo = {
@@ -30,26 +30,29 @@ const Profile = () => {
 
   const handleSubmit = async (values, actions) => {
     // Submit Updates
-    if (!values.email) {
-      values.email = profileInfo.email;
+    if (values.email || values.firstName || values.lastName) {
+      if (!values.email) {
+        values.email = profileInfo.email;
+      }
+      if (!values.firstName) {
+        values.firstName = profileInfo.firstName;
+      }
+      if (!values.lastName) {
+        values.lastName = profileInfo.lastName;
+      }
+      updateUser(profileInfo.userid, values);
     }
-    if (!values.firstName) {
-      values.firstName = profileInfo.firstName;
-    }
-    if (!values.lastName) {
-      values.lastName = profileInfo.lastName;
-    }
-    updateUser(profileInfo.userid, values);
     // reset form
     actions.resetForm();
-
   };
 
   return (
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
       <Spinner show={isLoading} />
       <ProfileContainer>
+        {isUpdated && <Alert severity="success"> {`Profile Updated:)`}</Alert>}
         <ProfileSetting profileInfo={profileInfo} onSubmit={handleSubmit} />
+        {error && <Alert severity="error">{error}</Alert>}
       </ProfileContainer>
       {hasReservations ? (
         <ReserveTable values={reservation} />

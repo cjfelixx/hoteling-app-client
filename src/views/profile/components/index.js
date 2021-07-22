@@ -46,6 +46,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 margin-top: 50px;
-height: calc(200px);
+height: calc(300px);
+margin 30px 0;
 
 `;
