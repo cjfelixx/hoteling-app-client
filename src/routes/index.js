@@ -4,6 +4,7 @@ import { StateProvider } from '../state';
 import { AnimatePresence } from 'framer-motion';
 import { INITIAL_STATE as AUTH_INITIAL_STATE } from '../state/auth/reducers';
 import { INITIAL_STATE as RESERVATION_INITIAL_STATE } from '../state/reservation/reducers';
+import { INITIAL_STATE as PROFILE_INITIAL_STATE } from '../state/profile/reducers';
 import reducers from '../state/reducers';
 import BaseStyles from './base-styles';
 import PrivateRoute from './private-route';
@@ -20,6 +21,7 @@ const Root = (props) => {
   const initialState = {
     auth: AUTH_INITIAL_STATE,
     reservation: RESERVATION_INITIAL_STATE,
+    profile: PROFILE_INITIAL_STATE,
   };
   
   return (

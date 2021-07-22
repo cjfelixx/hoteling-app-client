@@ -29,7 +29,7 @@ const Reserve = () => {
 
   const [show, showConfirm] = useState(false);
   const [reservation, setReservation] = useState({ userId: user, workspaceId: null, startDate: null, endDate: null });
-  const hasReservations = Availablereservation?.available?.length > 0;
+  const hasReservations = Availablereservation?.reservations?.length > 0;
 
   const handleSubmit = (values, action) => {
     getAvailableReservations(values);
@@ -59,10 +59,10 @@ const Reserve = () => {
       </Container>
       {hasReservations ? (
         <ReservationFeed>
-          {Availablereservation?.available?.map(r => (
+          {Availablereservation?.reservations?.map((r, index) => (
             <ReservationFeedItem
               onClick={() => handleConfirm({ ...reservation, workspaceId: r.workspaceid })}
-              key={r.workspaceid}>
+              key={index}>
               <section>
                 <div className="workspace">{`Workspace ` + r.workspaceid.toString()}</div>
                 <div className="description">{r.description}</div>

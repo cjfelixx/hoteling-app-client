@@ -1,7 +1,7 @@
 import { LIST_RESERVATIONS, LIST_AVAILABLE_RESERVATIONS, PUSH_RESERVATION, CLEAR_RESERVATION } from './actions';
 
 export const INITIAL_STATE = {
-  available: []
+  reservations: []
 };
 
 const reservationReducer = (state = null, action = {}) => {
@@ -9,12 +9,12 @@ const reservationReducer = (state = null, action = {}) => {
     case LIST_AVAILABLE_RESERVATIONS:
       return {
         ...state,
-        available: action.payload
+        reservations: action.payload
       };
     case LIST_RESERVATIONS:
       return {
         ...state,
-        available: action.payload
+        reservations: action.payload
       };
     // case PUSH_RESERVATION:
     //   return null;

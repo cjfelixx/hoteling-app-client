@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useLogin from '../../state/auth/hooks/useLogin';
 import Spinner from '../../components/spinner';
-import { Container, Error, LoginForm, Text } from './components';
+import { Container, Error, LoginForm } from './components';
 import { isTokenExpired } from '../../utils/jwt';
 import { motion } from 'framer-motion';
 import { pageTransition, pageVariants } from '../../utils/motion';

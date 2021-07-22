@@ -52,17 +52,17 @@ const UserText = styled.button`
   color: #000;
 `;
 const NavItems = styled.button`
+  cursor: pointer;
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
   outline: none;
+  margin: 0 5px;
   background-color: transparent;
-  cursor: pointer;
   border: none;
   color: #8b9aa7;
   transition: all 0.3s ease;
-
   &:hover {
     color: #3c5090;
   }
