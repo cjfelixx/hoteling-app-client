@@ -40,6 +40,7 @@ const useReserve = () => {
     dispatch(clearReservationLoad());
     setIsLoading(false);
   }
+
   return [reservation, getAvailableReservations, createReservation,resetSearchResults, isLoading, error, isReserved];
 };
 

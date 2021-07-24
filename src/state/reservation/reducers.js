@@ -1,4 +1,9 @@
-import { LIST_RESERVATIONS, LIST_AVAILABLE_RESERVATIONS, PUSH_RESERVATION, CLEAR_RESERVATION } from './actions';
+import {
+  LIST_RESERVATIONS,
+  LIST_AVAILABLE_RESERVATIONS,
+  PUSH_RESERVATION,
+  CLEAR_RESERVATION,
+} from './actions';
 
 export const INITIAL_STATE = {
   reservations: []
@@ -16,8 +21,6 @@ const reservationReducer = (state = null, action = {}) => {
         ...state,
         reservations: action.payload
       };
-    // case PUSH_RESERVATION:
-    //   return null;
     case CLEAR_RESERVATION:
       return null;
     default:

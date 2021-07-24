@@ -1,4 +1,10 @@
-import { GET_PROFILE, UPDATE_PROFILE, GET_PROFILE_RESERVATIONS } from './actions';
+import {
+  GET_PROFILE,
+  UPDATE_PROFILE,
+  GET_PROFILE_RESERVATIONS,
+  PATCH_PROFILE_RESERVATION,
+  DELETE_PROFILE_RESERVATION
+} from './actions';
 
 export const INITIAL_STATE = {
   userid: null,
@@ -25,12 +31,22 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         ...state,
         email: action.profile.email,
         firstName: action.profile.firstName,
-        lastName: action.profile.lastName,
+        lastName: action.profile.lastName
       };
     case GET_PROFILE_RESERVATIONS:
       return {
         ...state,
-        reservations: action.payload
+        reservations: action.reservations
+      };
+    case PATCH_PROFILE_RESERVATION:
+      return {
+        ...state,
+        reservations: action.reservations
+      };
+    case DELETE_PROFILE_RESERVATION:
+      return {
+        ...state,
+        reservations: action.reservations
       };
     default:
       return INITIAL_STATE;

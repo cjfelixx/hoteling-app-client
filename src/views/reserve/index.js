@@ -28,7 +28,13 @@ const Reserve = () => {
   }, []);
 
   const [show, showConfirm] = useState(false);
-  const [reservation, setReservation] = useState({ userId: user, workspaceId: null, startDate: null, endDate: null });
+  const [reservation, setReservation] = useState({
+    userId: user,
+    // reservationId: null,
+    workspaceId: null,
+    startDate: null,
+    endDate: null
+  });
   const hasReservations = Availablereservation?.reservations?.length > 0;
 
   const handleSubmit = (values, action) => {
@@ -45,6 +51,7 @@ const Reserve = () => {
       createReservation(value);
     }
   };
+  
   const handleCancel = () => {
     showConfirm(false);
   };
@@ -69,7 +76,13 @@ const Reserve = () => {
               </section>
             </ReservationFeedItem>
           ))}
-          <ConfirmDialog open={show} onClose={handleClose} onBackdropClick={handleCancel} reservation={reservation} />
+          <ConfirmDialog
+            open={show}
+            onClose={handleClose}
+            onBackdropClick={handleCancel}
+            reservation={reservation}
+            message={'Do you want to reserve?'}
+          />
         </ReservationFeed>
       ) : (
         <ReservationNotFound>No available workspaces.</ReservationNotFound>

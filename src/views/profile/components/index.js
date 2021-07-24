@@ -14,11 +14,10 @@ export const Container = styled.div`
   }
 `;
 
-export const Heading = styled.div`
+export const Heading = styled.h5`
   font-family: Poppins;
-  font-weight: Bold;
   width: 100%;
-  font-size: 48px;
+  font-size: 1.5rem;
   margin-bottom: 3px;
 `;
 

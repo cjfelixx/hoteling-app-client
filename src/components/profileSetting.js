@@ -1,15 +1,20 @@
-import styled from 'styled-components';
+
 import theme from './theme';
 import { Form, Formik } from 'formik';
 import Input from './form/input';
 import FormGroup from './form/formGroup';
 
 import Button from './button';
+import {Heading} from '../styles';
 
 const ProfileSetting = props => {
   const { profileInfo } = props;
   
   return (
+    <>
+    <Heading>
+    Account Settings
+  </Heading>
     <Formik
       initialValues={{
         email: "",
@@ -57,6 +62,7 @@ const ProfileSetting = props => {
         </Form>
       )}
     </Formik>
+    </>
   );
 };
 

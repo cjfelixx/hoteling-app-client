@@ -1,7 +1,19 @@
 import { useState } from 'react';
 import { useStateValue } from '../..';
-import { getProfileInfo, updateProfileInfo, getProfileReservations } from '../actions';
-import { loadUserProfile, updateUserProfile, loadProfileReservations } from '../queries';
+import {
+  getProfileInfo,
+  updateProfileInfo,
+  getProfileReservations,
+  updateReservationInfo,
+  deleteReservationInfo
+} from '../actions';
+import {
+  loadUserProfile,
+  updateUserProfile,
+  loadProfileReservations,
+  patchProfileReservation,
+  deleteProfileReservation
+} from '../queries';
 
 const useProfile = () => {
   const [{ profile }, dispatch] = useStateValue();
@@ -55,8 +67,52 @@ const useProfile = () => {
       setIsLoading(false);
     }
   };
+  const updateReservation = async (reservation, updateBody) => {
+    setIsUpdated(false);
+    setIsLoading(true);
+    setError('');
 
-  return [profile, getUser, updateUser, getReservationbyUser, isLoading, error, isUpdated];
+    if (reservation.userid && reservation.reservationid && updateBody.startDate && updateBody.endDate) {
+      try {
+        const response = await patchProfileReservation(reservation,updateBody);
+        dispatch(updateReservationInfo(response));
+        setIsUpdated(true);
+      } catch (err) {
+        setError(err.message);
+      }
+      getUser(reservation.userId);
+      setIsLoading(false);
+    }
+  };
+
+  const deleteReservation = async (reservation) => {
+    setIsUpdated(false);
+    setIsLoading(true);
+    setError('');
+
+    if (reservation) {
+      try {
+        const response = await deleteProfileReservation(reservation);
+        dispatch(deleteReservationInfo(response));
+        setIsUpdated(true);
+      } catch (err) {
+        setError(err.message);
+      }
+      getUser(reservation.userId);
+      setIsLoading(false);
+    }
+  };
+  return [
+    profile,
+    getUser,
+    updateUser,
+    getReservationbyUser,
+    updateReservation,
+    deleteReservation,
+    isLoading,
+    error,
+    isUpdated
+  ];
 };
 
 export default useProfile;

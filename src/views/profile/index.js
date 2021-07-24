@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Spinner from '../../components/spinner';
 import useProfile from '../../state/profile/hooks/useProfile';
 import { pageTransition, pageVariants } from '../../utils/motion';
 import { motion } from 'framer-motion';
-import ReserveTable from '../../components/reservationTable';
+import UserReserveTable from '../../components/userReserveTable';
 import { ProfileContainer, ReservationNotFound } from './components';
 import Alert from '@material-ui/lab/Alert';
 import * as jwt from 'jsonwebtoken';
@@ -13,9 +13,21 @@ const Profile = () => {
   const accessToken = localStorage.getItem('access_token');
   const user = jwt.decode(accessToken).sub;
 
-  const [profile, getUser, updateUser, getReservationbyUser, isLoading, error, isUpdated] = useProfile();
-  const reservation = profile?.reservations;
-  const hasReservations = reservation?.length > 0;
+  const [
+    profile,
+    getUser,
+    updateUser,
+    getReservationbyUser,
+    updateReservation,
+    deleteReservation,
+    isLoading,
+    error,
+    isUpdated
+  ] = useProfile();
+
+  const reservationList = profile?.reservations;
+  const hasReservations = reservationList?.length > 0;
+
   const profileInfo = {
     userid: profile.userid,
     email: profile.email,
@@ -23,6 +35,7 @@ const Profile = () => {
     lastName: profile.lastName,
     role: profile.role
   };
+
   useEffect(() => {
     getUser(user);
     getReservationbyUser(user);
@@ -40,22 +53,36 @@ const Profile = () => {
       if (!values.lastName) {
         values.lastName = profileInfo.lastName;
       }
-      updateUser(profileInfo.userid, values);
+      await updateUser(profileInfo.userid, values);
     }
     // reset form
     actions.resetForm();
+  };
+
+  const handleEdit = async (currentReservation, value) => {
+    if (currentReservation) {
+      await updateReservation(currentReservation, value);
+      getReservationbyUser(user);
+    }
+  };
+
+  const handleDelete = async values => {
+    if (values) {
+      await deleteReservation(values);
+      getReservationbyUser(user);
+    }
   };
 
   return (
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
       <Spinner show={isLoading} />
       <ProfileContainer>
-        {isUpdated && <Alert severity="success"> {`Profile Updated:)`}</Alert>}
+        {isUpdated && <Alert severity="success"> {`Updated:)`}</Alert>}
         <ProfileSetting profileInfo={profileInfo} onSubmit={handleSubmit} />
         {error && <Alert severity="error">{error}</Alert>}
       </ProfileContainer>
       {hasReservations ? (
-        <ReserveTable values={reservation} />
+        <UserReserveTable values={reservationList} onUpdate={handleEdit} onDelete={handleDelete} />
       ) : (
         <ReservationNotFound>No Reservations</ReservationNotFound>
       )}

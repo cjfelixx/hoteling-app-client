@@ -38,6 +38,7 @@ export const Error = styled.div`
 `;
 
 const ReserveButton = styled(Button)`
+font-size: 10px;
   margin: 10px 10px;
   width: 100px;
 `;
@@ -46,11 +47,11 @@ export const ReserveForm = (props) => (
   <Formik initialValues={{ startDate: '', endDate: '' }} {...props}>
     {({ handleChange, handleBlur, values, handleSubmit, errors }) => (
       <Form>
-        <FormGroup style={{ minWidth: 250 }}>
+        <FormGroup style={{ minWidth: 250, height: '50px' }}>
           <Input
             name="startDate"
             id="startDate"
-            placeholder="Check in"
+            placeholder="yyyy/mm/dd"
             onChange={handleChange('startDate')}
             onBlur={handleBlur('startDate')}
             error={errors.startDate}
@@ -60,14 +61,14 @@ export const ReserveForm = (props) => (
             name="endDate"
             id="endDate"
             type="endDate"
-            placeholder="Check out"
+            placeholder="yyyy/mm/dd"
             onChange={handleChange('endDate')}
             onBlur={handleBlur('endDate')}
             error={errors.endDate}
             value={values.endDate}
           />
           <ReserveButton primary large onClick={handleSubmit} type="submit">
-            Reserve
+            See Availability
           </ReserveButton>
         </FormGroup>
       </Form>

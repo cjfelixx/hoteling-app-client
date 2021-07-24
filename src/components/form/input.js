@@ -8,6 +8,7 @@ const Input = styled.input`
   padding: 7px;
   box-sizing: border-box;
   width: 100%;
+  height: 2.5rem;
   :focus {
     outline-color: ${theme.colors.primary};
   }

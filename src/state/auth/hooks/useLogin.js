@@ -12,7 +12,7 @@ const useLogin = () => {
   const formData = async ({ values, actions }) => {
     setIsLoading(true);
 
-    if (values.email !== '' && values.password !== '') {
+    if (values.email && values.password) {
       try {
         const response = await loginUser(values);
         localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, response.tokens.access.token);

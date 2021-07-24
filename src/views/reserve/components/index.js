@@ -60,7 +60,6 @@ export const ReservationFeedItem = styled.li`
   border-radius: 10px;
   // margin-bottom: 32px;
   padding: 2px 16px;
-
   cursor: pointer;
   :before {
     content: attr(data-date);
