@@ -7,6 +7,8 @@ import { logout } from '../state/auth/actions';
 import { useHistory } from 'react-router-dom';
 import { isTokenExpired } from '../utils/jwt';
 
+import { ROLE } from '../constants';
+
 const Nav = styled.div`
   height: 60px;
   width: 100%;
@@ -71,8 +73,10 @@ const NavItems = styled.button`
 const Header = props => {
   const [{ auth }, dispatch] = useStateValue();
   const history = useHistory();
+  const role = localStorage.getItem('role');
+
   const handleLogout = async () => {
-    await localStorage.clear();
+    localStorage.clear();
     dispatch(logout());
   };
 
@@ -80,9 +84,9 @@ const Header = props => {
     <Nav>
       <Title>DH Hoteling App</Title>
       <NavMenu>
-        {!isTokenExpired() && <NavItems onClick={() => history.push('/home')}>Home</NavItems>}
+        {!isTokenExpired() && role===ROLE.USER && <NavItems onClick={() => history.push('/home')}>Home</NavItems>}
         {/* {!isTokenExpired() && <NavItems onClick={()=> history.push('/settings')}>Settings</NavItems>} */}
-        {!isTokenExpired() && <NavItems onClick={() => history.push('/reserve')}>Reserve</NavItems>}
+        {!isTokenExpired() && role===ROLE.USER && <NavItems onClick={() => history.push('/reserve')}>Reserve</NavItems>}
       </NavMenu>
       <RightNav>
         {!isTokenExpired() && (
@@ -90,7 +94,7 @@ const Header = props => {
             Logout
           </NavItems>
         )}
-        {!isTokenExpired() && <NavItems onClick={() => history.push('/profile')}>Profile</NavItems>}
+        {!isTokenExpired() && role===ROLE.USER && <NavItems onClick={() => history.push('/profile')}>Profile</NavItems>}
       </RightNav>
     </Nav>
   );

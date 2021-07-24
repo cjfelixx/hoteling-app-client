@@ -149,7 +149,7 @@ const EnhancedTableToolbar = props => {
 //   numSelected: PropTypes.number.isRequired,
 // };
 
-const ReservationTable = props => {
+const AdminReservationTable = props => {
   const { values } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -270,4 +270,4 @@ const ReservationTable = props => {
   );
 };
 
-export default ReservationTable;
+export default AdminReservationTable;

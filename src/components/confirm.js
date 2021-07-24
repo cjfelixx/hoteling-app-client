@@ -8,7 +8,6 @@ import moment from 'moment';
 
 const ConfirmDialog = props => {
   const { onClose, reservation, open, message } = props;
-  console.log(reservation);
   const handleClose = () => onClose();
 
   const handleReserve = () => {

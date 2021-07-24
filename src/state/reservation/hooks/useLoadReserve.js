@@ -14,7 +14,6 @@ const useLoadReserve = () => {
 
     try {
       const response = await loadReservations();
-      console.log(response)  
       dispatch(listReservations(response));
     } catch (err) {
       setError(err.message);

@@ -17,6 +17,8 @@ const useLogin = () => {
         const response = await loginUser(values);
         localStorage.setItem(LOCAL_STORAGE.ACCESS_TOKEN, response.tokens.access.token);
         localStorage.setItem(LOCAL_STORAGE.REFRESH_TOKEN, response.tokens.refresh.token);
+        localStorage.setItem('role',response.user[0].role);
+
         dispatch(login(response));
       } catch (err) {
         setError(err.message);
