@@ -87,7 +87,7 @@ const EnhancedTableHead = props => {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            inputProps={{ 'aria-label': 'select all reservations' }}
           /> */}
         </TableCell>
         {headCells.map(headCell => (
@@ -118,7 +118,7 @@ const EnhancedTableHead = props => {
 const EnhancedTableToolbar = props => {
   return (
     <Toolbar>
-      <Typography style={{fontFamily: "poppins"}} variant="h5" id="tableTitle" component="h5">
+      <Typography style={{ fontFamily: 'poppins' }} variant="h5" id="tableTitle" component="h5">
         My Reservations
       </Typography>
     </Toolbar>
@@ -162,6 +162,7 @@ const UserReserveTable = props => {
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
+
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -173,7 +174,7 @@ const UserReserveTable = props => {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
-    // console.log(newSelected);
+    setSelected(newSelected);
   };
 
   const handleEdit = async value => {

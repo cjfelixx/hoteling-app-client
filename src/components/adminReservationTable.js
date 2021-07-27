@@ -17,9 +17,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Paper from '@material-ui/core/Paper';
+import ConfirmDialog from './confirm';
+import EditDialog from './editDialog';
 
 const Container = styled.div`
   background-color: white;
@@ -59,10 +62,12 @@ const stableSort = (array, comparator) => {
 };
 
 const headCells = [
-  { id: 'workspace', numeric: false, disablePadding: true, label: 'Workspace' },
-  { id: 'startDate', numeric: true, disablePadding: false, label: 'Start Date' },
-  { id: 'endDate', numeric: true, disablePadding: false, label: 'End Date' }
+  { id: 'workspaceid', main: true, disablePadding: true, label: 'Workspace' },
+  { id: 'username', main: false, disablePadding: false, label: 'Reserved By' },
+  { id: 'startDate', main: false, disablePadding: false, label: 'Start Date' },
+  { id: 'endDate', main: false, disablePadding: false, label: 'End Date' }
 ];
+
 // EnhancedTableHead.propTypes = {
 //   classes: PropTypes.object.isRequired,
 //   numSelected: PropTypes.number.isRequired,
@@ -74,7 +79,7 @@ const headCells = [
 // };
 
 const EnhancedTableHead = props => {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = property => event => {
     onRequestSort(event, property);
   };
@@ -87,13 +92,13 @@ const EnhancedTableHead = props => {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            inputProps={{ 'aria-label': 'select all reservations' }}
           />
         </TableCell>
         {headCells.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.main ? 'left' : 'right'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}>
             <TableSortLabel
@@ -102,13 +107,14 @@ const EnhancedTableHead = props => {
               onClick={createSortHandler(headCell.id)}>
               {headCell.label}
               {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
+                <span style={{ position: 'absolute', overflow: 'hidden', clip: 'rect(0 0 0 0)' }}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell padding="normal" />
       </TableRow>
     </TableHead>
   );
@@ -130,17 +136,13 @@ const EnhancedTableToolbar = props => {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
+        <Tooltip title="Reject All">
+          <IconButton aria-label="Reject All">
+            <HighlightOffIcon />
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <></>
       )}
     </Toolbar>
   );
@@ -150,12 +152,21 @@ const EnhancedTableToolbar = props => {
 // };
 
 const AdminReservationTable = props => {
-  const { values } = props;
+  const { values, onUpdate, onDelete } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [showDelete, setShowDelete] = React.useState(false);
+  const [showEdit, setShowEdit] = React.useState(false);
+  const [reservation, setReservation] = React.useState({
+    userId: null,
+    resrevationId: null,
+    workspaceId: null,
+    startDate: null,
+    endDate: null
+  });
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -165,7 +176,7 @@ const AdminReservationTable = props => {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = values.map(n => n.name);
+      const newSelecteds = values.map(n => n.reservationid);
       setSelected(newSelecteds);
       return;
     }
@@ -174,6 +185,7 @@ const AdminReservationTable = props => {
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
+
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -185,8 +197,36 @@ const AdminReservationTable = props => {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
-
     setSelected(newSelected);
+  };
+
+  const handleEdit = async value => {
+    if (showEdit) {
+      if (value) {
+        await onUpdate(reservation, value);
+      }
+    }
+    await handleCancel();
+  };
+
+  const handleDelete = async value => {
+    console.log(showDelete)
+    if (showDelete) {
+      if (value) {
+        await onDelete(value);
+      }
+    }
+    await handleCancel();
+  };
+
+  const handleSelect = async (event, value, mode) => {
+    await setReservation({ ...value });
+    mode === 'delete' ? await setShowDelete(true) : await setShowEdit(true);
+  };
+
+  const handleCancel = async () => {
+    await setShowDelete(false);
+    await setShowEdit(false);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -207,65 +247,85 @@ const AdminReservationTable = props => {
       <EnhancedTableToolbar numSelected={selected.length} />
       <TableContainer component={Paper}>
         <Table>
-        <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={values?.length}
-            />
-         
+          <EnhancedTableHead
+            numSelected={selected.length}
+            order={order}
+            orderBy={orderBy}
+            onSelectAllClick={handleSelectAllClick}
+            onRequestSort={handleRequestSort}
+            rowCount={values?.length}
+          />
+
           <TableBody>
-
-
-          {stableSort(values, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.workspaceid}
-                      </TableCell>
-                      <TableCell align="right">{moment(row.startDate).format('YYYY-MM-DD')}</TableCell>
-                      <TableCell align="right">{moment(row.endDate).format('YYYY-MM-DD')}</TableCell>
-
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-
-            {/* {values?.map((r, index) => (
-              <TableRow key={index}>
-                <TableCell scope="row">{r.workspaceid}</TableCell>
-                <TableCell align="right"> {moment(r.startDate).format('YYYY-MM-DD')}</TableCell>
-                <TableCell align="right"> {moment(r.endDate).format('YYYY-MM-DD')}</TableCell>
+            {stableSort(values, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                const isItemSelected = isSelected(row.reservationid);
+                const labelId = `enhanced-table-checkbox-${index}`;
+                return (
+                  <TableRow
+                    hover
+                    onClick={event => {
+                      handleClick(event, row.reservationid);
+                    }}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={index}
+                    selected={isItemSelected}>
+                    <TableCell padding="checkbox">
+                      <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} />
+                    </TableCell>
+                    <TableCell component="th" id={labelId} scope="row" padding="none">
+                      {row.workspaceid}
+                    </TableCell>
+                    <TableCell align="right">{row.firstName + ' ' + row.lastName}</TableCell>
+                    <TableCell align="right">{moment(row.startDate).format('YYYY-MM-DD')}</TableCell>
+                    <TableCell align="right">{moment(row.endDate).format('YYYY-MM-DD')}</TableCell>
+                    <TableCell align="right">
+                      <IconButton aria-label="edit" onClick={event => handleSelect(event, row, 'edit')}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton aria-label="delete" onClick={event => handleSelect(event, row, 'delete')}>
+                        <HighlightOffIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+              <TableRow>
+                {' '}
+                style={{ height: 53 * emptyRows }}
+                <TableCell colSpan={6} />
               </TableRow>
-            ))} */}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={values.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <ConfirmDialog
+        open={showDelete}
+        onClose={handleDelete}
+        onBackdropClick={handleCancel}
+        reservation={reservation}
+        message={'Are you sure to delete this reservation?'}
+      />
+      <EditDialog
+        open={showEdit}
+        onClose={handleEdit}
+        onBackdropClick={handleCancel}
+        reservation={reservation}
+        message={'Enter new date range'}
+      />
     </Container>
   );
 };

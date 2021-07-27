@@ -1,6 +1,14 @@
 import api from '../../utils/api';
 
-const basePath = '/users';
+const basePath = '/admin';
+
+export const loadUserProfiles = () => {
+  return api
+    .get(`${basePath + '/users'}`)
+    .then(res => res.data)
+    .catch(err => err.response.data);
+};
+
 export const loadUserProfile = user => {
   return api
     .get(`${basePath + '/' + user.toString()}`)
@@ -10,7 +18,21 @@ export const loadUserProfile = user => {
 
 export const updateUserProfile = (user, payload) => {
   return api
-    .patch(`${basePath + '/' + user.toString()}`, payload)
+    .patch(`${basePath + '/users' + user.toString()}`, payload)
+    .then(res => res.data)
+    .catch(err => err.response.data);
+};
+
+export const deleteUserProfile = (user, payload) => {
+  return api
+    .delete(`${basePath + '/users' + user.toString()}`, payload)
+    .then(res => res.data)
+    .catch(err => err.response.data);
+};
+
+export const loadReservations = user => {
+  return api
+    .get(`${basePath + '/reservations'}`)
     .then(res => res.data)
     .catch(err => err.response.data);
 };

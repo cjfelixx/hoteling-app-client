@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useStateValue } from '../..';
+import * as jwt from 'jsonwebtoken';
+
 import {
   getProfileInfo,
   updateProfileInfo,
@@ -16,20 +18,21 @@ import {
 } from '../queries';
 
 const useProfile = () => {
+  const accessToken = localStorage.getItem('access_token');
+  const user = jwt.decode(accessToken).sub;
   const [{ profile }, dispatch] = useStateValue();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isUpdated, setIsUpdated] = useState(false);
 
-  const getUser = async user => {
+  const getUser = async () => {
     setIsLoading(true);
     setError('');
     if (user) {
       try {
         const response = await loadUserProfile(user);
         dispatch(getProfileInfo(response[0]));
-
-        getReservationbyUser();
+        getUserReservations();
       } catch (err) {
         setError(err.message);
       }
@@ -37,7 +40,7 @@ const useProfile = () => {
     }
   };
 
-  const updateUser = async (user, values) => {
+  const updateUser = async values => {
     setIsUpdated(false);
     setIsLoading(true);
     setError('');
@@ -46,6 +49,7 @@ const useProfile = () => {
       try {
         const response = await updateUserProfile(user, values);
         dispatch(updateProfileInfo(response));
+        getUser();
         setIsUpdated(true);
       } catch (err) {
         setError(err.message);
@@ -54,7 +58,7 @@ const useProfile = () => {
       setIsLoading(false);
     }
   };
-  const getReservationbyUser = async user => {
+  const getUserReservations = async () => {
     setIsLoading(true);
     setError('');
     if (user) {
@@ -74,8 +78,9 @@ const useProfile = () => {
 
     if (reservation.userid && reservation.reservationid && updateBody.startDate && updateBody.endDate) {
       try {
-        const response = await patchProfileReservation(reservation,updateBody);
+        const response = await patchProfileReservation(reservation, updateBody);
         dispatch(updateReservationInfo(response));
+        getUserReservations();
         setIsUpdated(true);
       } catch (err) {
         setError(err.message);
@@ -85,7 +90,7 @@ const useProfile = () => {
     }
   };
 
-  const deleteReservation = async (reservation) => {
+  const deleteReservation = async reservation => {
     setIsUpdated(false);
     setIsLoading(true);
     setError('');
@@ -94,6 +99,7 @@ const useProfile = () => {
       try {
         const response = await deleteProfileReservation(reservation);
         dispatch(deleteReservationInfo(response));
+        getUserReservations();
         setIsUpdated(true);
       } catch (err) {
         setError(err.message);
@@ -106,7 +112,6 @@ const useProfile = () => {
     profile,
     getUser,
     updateUser,
-    getReservationbyUser,
     updateReservation,
     deleteReservation,
     isLoading,

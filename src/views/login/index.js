@@ -5,16 +5,18 @@ import { Container, Error, LoginForm } from './components';
 import { isTokenExpired } from '../../utils/jwt';
 import { motion } from 'framer-motion';
 import { pageTransition, pageVariants } from '../../utils/motion';
-import {ROLE} from "../../constants";
+import { ROLE } from '../../constants';
 
 const Login = ({ location, history }) => {
-  console.log(location)
+  const role = localStorage.getItem('role');
   const { from } = location.state || { from: { pathname: '/home' } };
   const [auth, setLogin, isLoading, error] = useLogin();
 
   useEffect(() => {
     if (!isTokenExpired()) {
-      history.push(from);
+      if (role === ROLE.USER) {history.push('/home')}
+      else {history.push('/admin')}
+
     }
   }, [auth, from, history]);
 

@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Spinner from '../../components/spinner';
 import useProfile from '../../state/profile/hooks/useProfile';
 import { pageTransition, pageVariants } from '../../utils/motion';
 import { motion } from 'framer-motion';
 import UserReserveTable from '../../components/userReserveTable';
-import { ProfileContainer, ReservationNotFound } from './components';
+import { Heading, ProfileContainer, ReservationNotFound } from './components';
 import Alert from '@material-ui/lab/Alert';
-import * as jwt from 'jsonwebtoken';
 import ProfileSetting from '../../components/profileSetting';
 
 const Profile = () => {
-  const accessToken = localStorage.getItem('access_token');
-  const user = jwt.decode(accessToken).sub;
-
   const [
     profile,
     getUser,
     updateUser,
-    getReservationbyUser,
     updateReservation,
     deleteReservation,
     isLoading,
@@ -37,8 +32,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getUser(user);
-    getReservationbyUser(user);
+    getUser();
   }, []);
 
   const handleSubmit = async (values, actions) => {
@@ -53,7 +47,7 @@ const Profile = () => {
       if (!values.lastName) {
         values.lastName = profileInfo.lastName;
       }
-      await updateUser(profileInfo.userid, values);
+      await updateUser(values);
     }
     // reset form
     actions.resetForm();
@@ -62,14 +56,12 @@ const Profile = () => {
   const handleEdit = async (currentReservation, value) => {
     if (currentReservation) {
       await updateReservation(currentReservation, value);
-      getReservationbyUser(user);
     }
   };
 
   const handleDelete = async values => {
     if (values) {
       await deleteReservation(values);
-      getReservationbyUser(user);
     }
   };
 
@@ -77,6 +69,7 @@ const Profile = () => {
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
       <Spinner show={isLoading} />
       <ProfileContainer>
+        <Heading>Account Settings</Heading>
         {isUpdated && <Alert severity="success"> {`Updated:)`}</Alert>}
         <ProfileSetting profileInfo={profileInfo} onSubmit={handleSubmit} />
         {error && <Alert severity="error">{error}</Alert>}

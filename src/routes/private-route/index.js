@@ -7,6 +7,7 @@ import { isTokenExpired } from '../../utils/jwt';
 const PrivateRoute = ({ component: Component, roles, ...rest }) => {
   const [{ auth }] = useStateValue();
   const role = localStorage.getItem('role');
+
   return (
     <Route
       {...rest}

@@ -19,7 +19,7 @@ export const loadAvailableReservations = payload => {
     });
 };
 
-export const submitReservation = payload => {
+export const createReservation = payload => {
   return api
     .post(`${basePath}/`, payload)
     .then(res => res.data)

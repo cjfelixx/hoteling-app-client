@@ -16,7 +16,7 @@ const Reserve = () => {
   const [
     Availablereservation,
     getAvailableReservations,
-    createReservation,
+    submitReservation,
     resetSearchResults,
     isLoading,
     error,
@@ -30,7 +30,6 @@ const Reserve = () => {
   const [show, showConfirm] = useState(false);
   const [reservation, setReservation] = useState({
     userId: user,
-    // reservationId: null,
     workspaceId: null,
     startDate: null,
     endDate: null
@@ -41,17 +40,17 @@ const Reserve = () => {
     getAvailableReservations(values);
     setReservation({ ...reservation, startDate: values.startDate, endDate: values.endDate });
   };
-  const handleConfirm = reservation => {
-    setReservation(reservation);
+  const handleConfirm = async reservation => {
+    await setReservation(reservation);
     showConfirm(true);
   };
-  const handleClose = value => {
+  const handleClose = async value => {
     showConfirm(false);
     if (value) {
-      createReservation(value);
+      await submitReservation(value);
     }
   };
-  
+
   const handleCancel = () => {
     showConfirm(false);
   };
@@ -63,6 +62,7 @@ const Reserve = () => {
         <ReserveForm onSubmit={(values, action) => handleSubmit(values, action)} />
         {error && <Alert severity="error">{error}</Alert>}
         {isReserved && <Alert severity="success"> {`Workspace Reserved:)`}</Alert>}
+        {console.log(reservation)}
       </Container>
       {hasReservations ? (
         <ReservationFeed>

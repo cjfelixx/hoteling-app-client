@@ -6,7 +6,8 @@ import { motion } from 'framer-motion';
 import HomeReserveTable from '../../components/homeReserveTable';
 import { Container, ReservationNotFound } from './components';
 import Alert from '@material-ui/lab/Alert';
-
+import ReserveToday
+ from '../../components/reserveToday';
 const Home = ({ history }) => {
   const [reservations, getReservations, isLoading, error] = useLoadReserve();
 
@@ -28,6 +29,7 @@ const Home = ({ history }) => {
       ) : (
         <ReservationNotFound>No Reservations</ReservationNotFound>
       )}
+      <ReserveToday/>
     </motion.div>
   );
 };

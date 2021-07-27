@@ -1,32 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from '../../components/spinner';
-import useLoadReserve from '../../state/reservation/hooks/useLoadReserve';
+import useAdmin from '../../state/admin/hooks/useAdmin';
 import { pageTransition, pageVariants } from '../../utils/motion';
 import { motion } from 'framer-motion';
-import AdminReserveTable from "../../components/adminReservationTable";
+import AdminReserveTable from '../../components/adminReservationTable';
 import { Container, ReservationNotFound } from './components';
-import Alert from '@material-ui/lab/Alert';
 
 const AdminHome = () => {
+  // const [reservations, getReservations, isLoading, error] = useAdmin();
 
-  const [reservations, getReservations, isLoading, error] = useLoadReserve();
+  // const hasReservations = reservations?.reservations?.length > 0;
 
-  const hasReservations = reservations?.reservations?.length > 0;
+  // useEffect(() => {
+  //   getReservations();
+  // }, []);
+  // const handleEdit = async (currentReservation, value) => {
+  //   if (currentReservation) {
+  //     // await updateReservation(currentReservation, value);
+  //     getReservations();
+  //   }
+  // };
 
-  useEffect(() => {
-    getReservations();
-  }, []);
+  // const handleDelete = async values => {
+  //   if (values) {
+  //     // await deleteReservation(values);
+  //     getReservations();
+  //   }
+  // };
 
   return (
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
-      <Spinner show={isLoading} />
-      <span>Admin</span>
-      <Container>{error && <Alert severity="error">{error}</Alert>}</Container>
+      {/* <Spinner show={isLoading} />
       {hasReservations ? (
-        <AdminReserveTable values={reservations?.reservations} />
+        <AdminReserveTable values={reservations?.reservations} onUpdate={handleEdit} onDelete={handleDelete} />
       ) : (
         <ReservationNotFound>No Reservations</ReservationNotFound>
-      )}
+      )} */}
     </motion.div>
   );
 };

@@ -16,9 +16,9 @@ export const Container = styled.div`
 
 export const Heading = styled.h5`
   font-family: Poppins;
+  margin: 0 0 20px 40px;
   width: 100%;
   font-size: 1.5rem;
-  margin-bottom: 3px;
 `;
 
 export const Content = styled.div`
@@ -39,13 +39,13 @@ export const ReservationNotFound = styled.div`
 
 export const ProfileContainer = styled.div`
 background-color: white;
+height: 100%;
 border-radius: 10px;
 display: flex;
 flex-direction: column;
+padding: 17px;
 justify-content: center;
 align-items: center;
 margin-top: 50px;
-height: calc(300px);
-margin 30px 0;
-
+min-height: calc(300px);
 `;
