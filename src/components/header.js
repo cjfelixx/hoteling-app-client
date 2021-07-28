@@ -37,7 +37,6 @@ const RightNav = styled.nav`
   /* justify-content: flex-end;
   width: 100vw; */
   @media screen and (max-width: 768px) {
-    display: none;
   }
 `;
 
@@ -46,6 +45,9 @@ const Title = styled.h1`
   margin: 30px;
   color: #000;
   font-weight: 500;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const UserText = styled.button`
   font-family: poppins;
@@ -68,6 +70,10 @@ const NavItems = styled.button`
   &:hover {
     color: #3c5090;
   }
+  &:active {
+    color: #3c5090;
+
+  }
 `;
 
 const Header = props => {
@@ -82,7 +88,7 @@ const Header = props => {
 
   return (
     <Nav>
-      <Title>DH Hoteling App</Title>
+      <Title>"The Hoteling App"</Title>
       <NavMenu>
         {!isTokenExpired() && role===ROLE.USER && <NavItems onClick={() => history.push('/home')}>Home</NavItems>}
         {/* {!isTokenExpired() && <NavItems onClick={()=> history.push('/settings')}>Settings</NavItems>} */}

@@ -13,7 +13,7 @@ const Button = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  width: ${props => (props.large ? '100%' : 'auto')};
+  width: ${props => (props.large ? '100%' : 'fit-content')};
   &:hover {
     opacity: 0.7;
   }

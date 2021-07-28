@@ -15,13 +15,15 @@ const FormGroup = styled.div`
 `;
 
 const Input = styled.input`
+  font-family: poppins;
   // position: relative;
   margin: 10px 5px;
   border-radius: 20px;
   border: 1px solid #e6e6e6;
   padding: 10px;
   box-sizing: border-box;
-  width: 100px;
+  width: 165px;
+  height: 40px;
   :focus {
     outline-color: ${theme.colors.primary};
   }
@@ -38,12 +40,13 @@ export const Error = styled.div`
 `;
 
 const ReserveButton = styled(Button)`
-font-size: 10px;
+  font-size: 12px;
   margin: 10px 10px;
-  width: 100px;
+  height: 40px;
+  width: fit-content;
 `;
 
-export const ReserveForm = (props) => (
+export const ReserveForm = props => (
   <Formik initialValues={{ startDate: '', endDate: '' }} {...props}>
     {({ handleChange, handleBlur, values, handleSubmit, errors }) => (
       <Form>
