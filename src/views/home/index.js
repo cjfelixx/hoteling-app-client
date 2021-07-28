@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 import HomeReserveTable from '../../components/homeReserveTable';
 import { Container, ReservationNotFound } from './components';
 import Alert from '@material-ui/lab/Alert';
-import ReserveToday
- from '../../components/reserveToday';
+import Map from '../../components/map';
+import ReserveToday from '../../components/reserveToday';
 const Home = ({ history }) => {
   const [reservations, getReservations, isLoading, error] = useLoadReserve();
 
@@ -23,13 +23,14 @@ const Home = ({ history }) => {
   return (
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
       <Spinner show={isLoading} />
+      <Map />
       <Container>{error && <Alert severity="error">{error}</Alert>}</Container>
       {hasReservations ? (
         <HomeReserveTable values={reservations?.reservations} />
       ) : (
         <ReservationNotFound>No Reservations</ReservationNotFound>
       )}
-      <ReserveToday/>
+      <ReserveToday />
     </motion.div>
   );
 };

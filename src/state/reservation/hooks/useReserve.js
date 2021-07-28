@@ -24,9 +24,17 @@ const useReserve = () => {
   };
 
   const submitReservation = async body => {
+    const newBody = {
+      userId: body.userId,
+      workspaceId: body.workspaceid,
+      startDate: body.startDate,
+      endDate: body.endDate
+    };
+
     setIsLoading(true);
     try {
-      await createReservation(body);
+      await createReservation(newBody);
+      resetSearchResults();
       setIsReserved(true);
     } catch (err) {
       setError(err.message);

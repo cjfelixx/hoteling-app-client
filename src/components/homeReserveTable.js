@@ -19,7 +19,7 @@ const Container = styled.div`
   background-color: white;
   border-radius: 5px;
   width: calc(100vw - 100px);
-  margin-top: 50px;
+  margin-top: 20px;
   @media screen and (max-width: 900px) {
     width: 100vw;
     border-radius: 0px;

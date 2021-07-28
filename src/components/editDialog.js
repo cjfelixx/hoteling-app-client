@@ -18,7 +18,7 @@ const EditDialog = props => {
   const handleSubmit = (event, actions) => {
     setStartDate('');
     setEndDate('');
-    onClose({startDate: startDate, endDate: endDate});
+    onClose({ startDate: startDate, endDate: endDate });
   };
 
   return (
@@ -33,8 +33,7 @@ const EditDialog = props => {
             value={startDate}
             margin="dense"
             id="startDate"
-            label="Start Date"
-            type="startDate"
+            type="date"
             onChange={e => setStartDate(e.target.value)}
           />
           <TextField
@@ -44,8 +43,7 @@ const EditDialog = props => {
             value={endDate}
             margin="dense"
             id="endDate"
-            label="End Date"
-            type="endDate"
+            type="date"
             onChange={e => setEndDate(e.target.value)}
           />
         </form>

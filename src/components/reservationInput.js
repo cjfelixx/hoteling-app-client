@@ -51,6 +51,7 @@ export const ReserveForm = (props) => (
           <Input
             name="startDate"
             id="startDate"
+            type="date"
             placeholder="yyyy/mm/dd"
             onChange={handleChange('startDate')}
             onBlur={handleBlur('startDate')}
@@ -60,7 +61,7 @@ export const ReserveForm = (props) => (
           <Input
             name="endDate"
             id="endDate"
-            type="endDate"
+            type="date"
             placeholder="yyyy/mm/dd"
             onChange={handleChange('endDate')}
             onBlur={handleBlur('endDate')}

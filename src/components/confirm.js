@@ -18,7 +18,7 @@ const ConfirmDialog = props => {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="reservation-confirm">{message}</DialogTitle>
       <DialogContent>
-        <div>{`Workspace: ` + reservation.workspaceId}</div>
+        <div>{`Workspace: ` + reservation.workspaceid}</div>
         <div>{`Start date: ` + moment(reservation.startDate).format('YYYY-MM-DD')}</div>
         <div>{`End date: ` + moment(reservation.endDate).format('YYYY-MM-DD')}</div>
       </DialogContent>

@@ -30,7 +30,7 @@ const Reserve = () => {
   const [show, showConfirm] = useState(false);
   const [reservation, setReservation] = useState({
     userId: user,
-    workspaceId: null,
+    workspaceid: null,
     startDate: null,
     endDate: null
   });
@@ -45,6 +45,7 @@ const Reserve = () => {
     showConfirm(true);
   };
   const handleClose = async value => {
+
     showConfirm(false);
     if (value) {
       await submitReservation(value);
@@ -68,7 +69,7 @@ const Reserve = () => {
         <ReservationFeed>
           {Availablereservation?.reservations?.map((r, index) => (
             <ReservationFeedItem
-              onClick={() => handleConfirm({ ...reservation, workspaceId: r.workspaceid })}
+              onClick={() => handleConfirm({ ...reservation, workspaceid: r.workspaceid })}
               key={index}>
               <section>
                 <div className="workspace">{`Workspace ` + r.workspaceid.toString()}</div>

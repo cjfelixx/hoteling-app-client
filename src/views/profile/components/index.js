@@ -46,6 +46,6 @@ flex-direction: column;
 padding: 17px;
 justify-content: center;
 align-items: center;
-margin-top: 50px;
+margin-top: 20px;
 min-height: calc(300px);
 `;
