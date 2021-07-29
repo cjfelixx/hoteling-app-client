@@ -64,3 +64,24 @@ export const patchProfileReservation = (reservation, payload) => {
     .then(res => res.data)
     .catch(err => err.response.data);
 };
+
+export const loadNewBookings = () => {
+  return api
+    .get(`${basePath + '/new-bookings'}`)
+    .then(res => res.data)
+    .catch(err => err.response.data);
+};
+
+export const loadUsersToday = () => {
+  return api
+    .get(`${basePath + '/users-today'}`)
+    .then(res => res.data)
+    .catch(err => err.response.data);
+};
+
+export const loadWeeklyBookings = () => {
+  return api
+    .get(`${basePath + '/bookings-week'}`)
+    .then(res => res.data)
+    .catch(err => err.response.data);
+};

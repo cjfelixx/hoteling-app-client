@@ -154,7 +154,7 @@ const EnhancedTableToolbar = props => {
 const AdminReservationTable = props => {
   const { values, onUpdate, onDelete } = props;
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('updatedAt');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -210,7 +210,6 @@ const AdminReservationTable = props => {
   };
 
   const handleDelete = async value => {
-    console.log(showDelete)
     if (showDelete) {
       if (value) {
         await onDelete(value);
@@ -294,9 +293,7 @@ const AdminReservationTable = props => {
                 );
               })}
             {emptyRows > 0 && (
-              <TableRow>
-                {' '}
-                style={{ height: 53 * emptyRows }}
+              <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />
               </TableRow>
             )}

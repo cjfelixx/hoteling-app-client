@@ -19,7 +19,41 @@ const useAdmin = () => {
     }
     setIsLoading(false);
   };
-  return [isLoading, error];
+
+  const updateReservation = async (reservation, updateBody) => {
+    setIsUpdated(false);
+    setIsLoading(true);
+    setError('');
+
+    if (reservation.userid && reservation.reservationid && updateBody.startDate && updateBody.endDate) {
+      try {
+        const response = await patchProfileReservation(reservation, updateBody);
+        dispatch(updateReservationInfo(response));
+        setIsUpdated(true);
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoading(false);
+    }
+  };
+
+  const deleteReservation = async reservation => {
+    setIsUpdated(false);
+    setIsLoading(true);
+    setError('');
+
+    if (reservation) {
+      try {
+        const response = await deleteProfileReservation(reservation);
+        dispatch(deleteReservationInfo(response));
+        setIsUpdated(true);
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoading(false);
+    }
+
+  return [getReservations,updateReservation,deleteReservation,isLoading, error];
 };
 
 export default useAdmin;

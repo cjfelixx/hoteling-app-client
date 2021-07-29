@@ -63,7 +63,6 @@ const Reserve = () => {
         <ReserveForm onSubmit={(values, action) => handleSubmit(values, action)} />
         {error && <Alert severity="error">{error}</Alert>}
         {isReserved && <Alert severity="success"> {`Workspace Reserved:)`}</Alert>}
-        {console.log(reservation)}
       </Container>
       {hasReservations ? (
         <ReservationFeed>

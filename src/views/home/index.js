@@ -23,7 +23,7 @@ const Home = ({ history }) => {
   return (
     <motion.div initial="initial" animate="in" exit="out" transition={pageTransition} variants={pageVariants}>
       <Spinner show={isLoading} />
-      <Map />
+      <Map/>
       <Container>{error && <Alert severity="error">{error}</Alert>}</Container>
       {hasReservations ? (
         <HomeReserveTable values={reservations?.reservations} />

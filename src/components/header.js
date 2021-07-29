@@ -93,6 +93,8 @@ const Header = props => {
         {!isTokenExpired() && role===ROLE.USER && <NavItems onClick={() => history.push('/home')}>Home</NavItems>}
         {/* {!isTokenExpired() && <NavItems onClick={()=> history.push('/settings')}>Settings</NavItems>} */}
         {!isTokenExpired() && role===ROLE.USER && <NavItems onClick={() => history.push('/reserve')}>Reserve</NavItems>}
+        {!isTokenExpired() && role===ROLE.ADMIN && <NavItems onClick={() => history.push('/home')}>Users</NavItems>}
+        {!isTokenExpired() && role===ROLE.ADMIN && <NavItems onClick={() => history.push('/home')}>Workspaces</NavItems>}
       </NavMenu>
       <RightNav>
         {!isTokenExpired() && (

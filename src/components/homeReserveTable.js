@@ -127,7 +127,7 @@ const EnhancedTableToolbar = props => {
 const HomeReserveTable = props => {
   const { values } = props;
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('startDate');
+  const [orderBy, setOrderBy] = React.useState('updatedAt');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
