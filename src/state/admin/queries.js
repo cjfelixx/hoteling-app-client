@@ -44,10 +44,10 @@ export const loadProfileReservations = user => {
     .catch(err => err.response.data);
 };
 
-export const deleteProfileReservation = reservation => {
+export const deleteReservation = reservation => {
   return api
     .delete(
-      `${basePath + '/' + reservation.userid.toString() + '/reservations/' + reservation.reservationid.toString()}`
+      `${basePath + '/reservations/' + reservation.reservationid.toString()}`
     )
     .then(res => res.data)
     .catch(err => {
@@ -55,10 +55,10 @@ export const deleteProfileReservation = reservation => {
     });
 };
 
-export const patchProfileReservation = (reservation, payload) => {
+export const patchReservation = (reservation, payload) => {
   return api
     .patch(
-      `${basePath + '/' + reservation.userid.toString() + '/reservations/' + reservation.reservationid.toString()}`,
+      `${basePath + '/reservations/' + reservation.reservationid.toString()}`,
       payload
     )
     .then(res => res.data)

@@ -27,8 +27,6 @@ const StatCard = styled.div`
   align-items: center;
   text-align: center;
   @media screen and (max-width: 900px) {
-    
-    border-radius: 0px;
   }
 `;
 

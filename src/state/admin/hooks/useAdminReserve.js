@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useStateValue } from '../../index';
+import { listAvailableReservations, clearReservationLoad } from '../actions';
+import { loadAvailableReservations, createReservation } from '../queries';
 
 const useAdmin = () => {
   const [{ reservation }, dispatch] = useStateValue();
@@ -27,7 +29,7 @@ const useAdmin = () => {
 
     if (reservation.userid && reservation.reservationid && updateBody.startDate && updateBody.endDate) {
       try {
-        const response = await patchProfileReservation(reservation, updateBody);
+        const response = await patchReservation(reservation, updateBody);
         dispatch(updateReservationInfo(response));
         setIsUpdated(true);
       } catch (err) {
@@ -44,7 +46,7 @@ const useAdmin = () => {
 
     if (reservation) {
       try {
-        const response = await deleteProfileReservation(reservation);
+        const response = await deleteReservation(reservation);
         dispatch(deleteReservationInfo(response));
         setIsUpdated(true);
       } catch (err) {

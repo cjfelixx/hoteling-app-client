@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from '../../components/spinner';
-import useLoadReserve from "../../state/profile/hooks/useProfile";
-import useReserve from "../../state/reservation/hooks/useReserve";
+import useLoadReserve from '../../state/reservation/hooks/useLoadReserve';
+import useReserve from '../../state/reservation/hooks/useReserve';
+import useProfile from '../../state/profile/hooks/useProfile';
 import { pageTransition, pageVariants } from '../../utils/motion';
 import { motion } from 'framer-motion';
 import AdminReserveTable from '../../components/adminReservationTable';
@@ -12,7 +13,8 @@ import { loadNewBookings, loadUsersToday, loadWeeklyBookings } from '../../state
 
 const AdminHome = () => {
   const [reservations, getReservations, isLoading, error] = useLoadReserve();
-
+  const [profile, getUser, updateUser, updateReservation, deleteReservation, _isLoading, _error, _isUpdated] =
+    useProfile();
   const [newBookings, setNewBookings] = useState();
   const [usersToday, setUsersToday] = useState();
   const [weeklyBookings, setWeeklyBookings] = useState();

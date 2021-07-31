@@ -88,7 +88,7 @@ const Header = props => {
 
   return (
     <Nav>
-      <Title>"The Hoteling App"</Title>
+      <Title>AlohaDesk</Title>
       <NavMenu>
         {!isTokenExpired() && role===ROLE.USER && <NavItems onClick={() => history.push('/home')}>Home</NavItems>}
         {/* {!isTokenExpired() && <NavItems onClick={()=> history.push('/settings')}>Settings</NavItems>} */}

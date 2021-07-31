@@ -44,6 +44,9 @@ const ReserveButton = styled(Button)`
   margin: 10px 10px;
   height: 40px;
   width: fit-content;
+  @media screen and (max-width: 900px) {
+    font-size: 9px;
+  }
 `;
 
 export const ReserveForm = props => (
